@@ -1,11 +1,13 @@
 'use strict'
 const mongoose = require('mongoose')
-const connectString = `mongodb://127.0.0.1:27017/shopDev`
+const {db: {host, port, name}} = require('../configs/config.mongodb')
+const connectString = `mongodb://${host}:${port}/${name}`
+const { countConnect } = require('../helpers/check.connect')
 
 class Database {
     
     constructor() {
-
+        this.connect();
     }
 
     // connect to mongoDB
@@ -16,9 +18,9 @@ class Database {
             mongoose.set('debug', {color:true})
         }
 
-        mongoose.connect(connectString, {maxPoolSize : 50}
-            .then(_=>console.log(`Connected Mongodb Success PRO at ${connectString}`)))
-            .catch( err => console.log('Error connect!!!'))
+        mongoose.connect(connectString, {maxPoolSize : 50})
+        .then( _=>console.log(`Connected Mongodb Success PRO at ${connectString} `, countConnect()))
+        .catch( err => console.log('Error connect!!!'))
     }
 
     // create instance allow only 1 instance was created at a time
