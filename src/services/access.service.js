@@ -39,7 +39,15 @@ class AccessService {
                 // create privateKey, publicKey
                 const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
                     modulusLength: 4096,
-
+                    publicKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                        // Public Key Cryptography Standards !
+                    },
+                    privateKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                    }
                     
                 })
 
