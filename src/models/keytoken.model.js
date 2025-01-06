@@ -16,6 +16,10 @@ const keyTokenSchema = new Schema({
         type:String,
         required: true
     },
+    privateKey:{
+        type:String,
+        required: true
+    },
     refreshToken: { //=> to check hackers who utilize this token
         type: Array,
         default: []
