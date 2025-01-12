@@ -17,11 +17,21 @@ const createTokenPair = async( payload, publicKey, privateKey ) => {
             expiresIn: '7 days'
         })
 
-        JWT.verify( accessToken, refreshToken, (err, decode) => {
+        // Verify the accessToken
+        JWT.verify(accessToken, privateKey, (err, decode) => {
             if (err) {
-                console.error('error verify::', err)
+                console.error('Access Token verification error:', err)
             } else {
-                console.log('decode verify::', decode)
+                console.log('Access Token decoded:', decode)
+            }
+        })
+
+        // Verify the refreshToken
+        JWT.verify(refreshToken, privateKey, (err, decode) => {
+            if (err) {
+                console.error('Refresh Token verification error:', err)
+            } else {
+                console.log('Refresh Token decoded:', decode)
             }
         })
         return { accessToken, refreshToken}
